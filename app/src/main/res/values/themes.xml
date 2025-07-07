@@ -6,4 +6,16 @@
     </style>
 
     <style name="Theme.QrCode250704" parent="Base.Theme.QrCode250704" />
+
+    <style name="zxing_CaptureTheme" parent="@style/Theme.AppCompat.Light.NoActionBar">
+        <!-- 保持全屏但移除透明设置 -->
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <!-- 添加不透明背景 -->
+        <item name="android:windowBackground">@android:color/black</item>
+        <item name="android:colorBackground">@android:color/black</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
 </resources>
