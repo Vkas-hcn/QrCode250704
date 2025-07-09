@@ -39,20 +39,13 @@ class CreateActivity : AppCompatActivity() {
     }
 
     private fun initViews() {
-        // 如果XML中使用的是TextView，需要在运行时替换为EditText
-        // 或者直接在XML中将tv_text改为EditText
-
-        // 这里假设XML已经使用EditText，如果是TextView需要进行以下设置：
         binding.tvText.apply {
-            // 如果是AppCompatTextView并支持输入
             isFocusable = true
             isFocusableInTouchMode = true
             isClickable = true
 
-            // 设置输入类型和其他属性
             inputType = android.text.InputType.TYPE_CLASS_TEXT or android.text.InputType.TYPE_TEXT_FLAG_MULTI_LINE
 
-            // 添加文本变化监听器（如果支持）
             if (this is android.widget.EditText) {
                 addTextChangedListener(object : TextWatcher {
                     override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -60,7 +53,6 @@ class CreateActivity : AppCompatActivity() {
                     override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
                     override fun afterTextChanged(s: Editable?) {
-                        // 可以在这里实时预览二维码，但为了性能考虑，我们在点击创建时生成
                     }
                 })
             }
@@ -95,16 +87,12 @@ class CreateActivity : AppCompatActivity() {
         }
 
         try {
-            // 生成二维码
             val qrCodeBitmap = generateQRCodeBitmap(text, 512, 512)
 
             if (qrCodeBitmap != null) {
-                // 跳转到结果页面
                 val intent = Intent(this, CreateResultActivity::class.java)
                 intent.putExtra("qr_text", text)
 
-                // 将bitmap保存到临时文件或通过Application传递
-                // 这里我们通过Application类传递bitmap
                 (application as? QRCodeApplication)?.setTempQRCodeBitmap(qrCodeBitmap)
 
                 startActivity(intent)
@@ -140,5 +128,3 @@ class CreateActivity : AppCompatActivity() {
         }
     }
 }
-
-// 简单的Application类用于传递Bitmap
